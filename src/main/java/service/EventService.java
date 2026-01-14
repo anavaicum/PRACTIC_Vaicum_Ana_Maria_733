@@ -25,6 +25,24 @@ public class EventService {
     }
 
 
+    //UBUNG 5
+    public List<String> calculateAndPrintEventPoints() {
+        List<Event> events = eventRepo.findAll().stream().limit(5).toList();
+        return events.stream().map(event -> {
+            Integer riskScore = switch (event.getType()) {
+                case SPEEDING -> event.getSeverity() * 2;
+                case RED_LIGHT -> event.getSeverity() * 3;
+                case ACCIDENT -> event.getSeverity() * 5;
+                case PRIORITY_PASS -> event.getSeverity() * 1;
+
+            };
+            return String.format("Event %d -> severity=%d -> riskScore=%d",
+                    event.getId(),
+                    event.getSeverity(),
+                    riskScore);
+        }).toList();
+    }
+
 
 
 }

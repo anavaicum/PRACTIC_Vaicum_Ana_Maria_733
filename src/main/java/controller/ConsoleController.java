@@ -73,6 +73,8 @@ public class ConsoleController {
         //4
         menu.put(4, new MenuItem("Ubung 4", this::option4));
 
+        menu.put(5, new MenuItem("Ubung 5", this::option5));
+
 
     }
 
@@ -113,6 +115,11 @@ public class ConsoleController {
     private void option4() {
         vehicleService.saveSortedVehicleToFile();
         System.out.println("Saved to data/vehicles_sorted.txt.txt");
+    }
+
+    private void option5() {
+        eventService.calculateAndPrintEventPoints()
+                .forEach(System.out::println);
     }
 
 
