@@ -64,6 +64,15 @@ public class ConsoleController {
         // 1
         menu.put(1, new MenuItem("Ubung 1", this::option1));
 
+        // 2
+        menu.put(2, new MenuItem("Ubung 2", this::option2));
+
+        //3
+        menu.put(3, new MenuItem("Ubung 3", this::option3));
+
+        //4
+        menu.put(4, new MenuItem("Ubung 4", this::option4));
+
 
     }
 
@@ -88,6 +97,24 @@ public class ConsoleController {
 
         vehicleService.printAllVehicles().forEach(System.out::println);
     }
+
+    private void option2() {
+        String type = readNonEmpty("Type: ");
+        String status = readNonEmpty("Status: ");
+        vehicleService.filterVehicleByTypeUndStatus(type, status)
+                .forEach(System.out::println);
+    }
+
+    private void option3() {
+        vehicleService.sortBySkillDescThenNameAsc()
+                .forEach(System.out::println);
+    }
+
+    private void option4() {
+        vehicleService.saveSortedVehicleToFile();
+        System.out.println("Saved to data/vehicles_sorted.txt.txt");
+    }
+
 
 
 

@@ -35,6 +35,52 @@ public class VehicleService {
                         vehicle.getOwnerCity()))
                 .toList();
     }
+
+    //UBUNG 2
+    public List<String> filterVehicleByTypeUndStatus(String type, String status) {
+        List<Vehicle> vehicles = vehicleRepo.findAll();
+        return vehicles.stream()
+                .filter(f -> f.getType().equals(type))
+                .filter(f -> f.getStatus().equals(status))
+                .map(vehicle -> String.format("[%d] %s | %s | %s | city=%s",
+                        vehicle.getId(),
+                        vehicle.getLicensePlate(),
+                        vehicle.getType(),
+                        vehicle.getStatus(),
+                        vehicle.getOwnerCity()))
+                .toList();
+    }
+
+
+
+    //UBUNG 3
+    public List<String> sortBySkillDescThenNameAsc() {
+        List<Vehicle> vehicles = vehicleRepo.findAll();
+        return vehicles.stream()
+                .sorted((f1, f2) -> {
+                    return f1.getOwnerCity().compareToIgnoreCase(f2.getOwnerCity());
+
+
+                })
+                .map(vehicle -> String.format("[%d] %s | %s | %s | city=%s",
+                        vehicle.getId(),
+                        vehicle.getLicensePlate(),
+                        vehicle.getType(),
+                        vehicle.getStatus(),
+                        vehicle.getOwnerCity()))
+                .toList();
+    }
+
+    //UBUNG 4
+    public void saveSortedVehicleToFile() {
+        List<String> sortedVehicle = sortBySkillDescThenNameAsc();
+        Path filePath = Path.of("data/vehicles_sorted.txt");
+        try {
+            java.nio.file.Files.write(filePath, sortedVehicle);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
